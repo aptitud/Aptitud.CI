@@ -39,6 +39,8 @@ task stage(dependsOn: copyJenkins) {
 
 }
 
+defaultTasks = ["copyJenkins"]
+
 heroku {
     appName = 'aptitudci'
 
