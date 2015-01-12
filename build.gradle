@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
+    }
+
+    dependencies {
+        classpath 'com.wiredforcode:gradle-heroku-plugin:1.0.0'
+    }
+}
+
+apply plugin: 'heroku'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.jenkins-ci.org/releases'
+    }
+}
+
+version = '1.0'
+
+configurations {
+    jenkins
+}
+
+dependencies {
+    jenkins 'org.jenkins-ci.main:jenkins-war:1.596'
+}
+
+task copyJenkins(type: Copy) {
+    from configurations.jenkins
+    into "$buildDir/jenkins-tmp"
+}
+
+//herokuAppDeploy.dependsOn copyJenkins
+
+task stage(dependsOn: copyJenkins) {
+
+}
+
+heroku {
+    appName = 'aptitudci'
+
+    //get this from heroku
+    apiKey = herokuApiKey
+}
+
