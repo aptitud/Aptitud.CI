@@ -1,1 +1,1 @@
-web: java -jar ./build/jenkins-tmp/jenkins-war-1.596.war --httpPort==$PORT
+web: java -jar ./build/jenkins-tmp/jenkins-war-1.596.war --httpPort=$PORT
